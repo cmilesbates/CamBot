@@ -2,6 +2,14 @@ import discord
 
 client = discord.Client()
 
+valid_commands = ["hello"]
+
+def display_valid_commands():
+    response = "\n**Here is a list of available commands:**"
+    for i in range(len(valid_commands)):
+        response += "\n*" + str(i+1) + ". " + valid_commands[i] + "*"
+    return response
+
 @client.event
 async def on_ready():
     print("CamBot is ready!")
@@ -11,9 +19,18 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-    if message.content.startswith("!hello"):
+    if message.content.startswith("!cambot"):
+        commands = message.content.split(' ')
         channel = message.channel
-        response = "Hi, " + message.author.mention + "!"
+        if len(commands) == 1:
+            response =  message.author.mention + ": **The syntax for this bot is** ***" + commands[0] + " <command>.***"
+            response += display_valid_commands()
+        elif commands[1] == "hello":
+            response = "Hi, " + message.author.mention + "!"
+        else:
+            response = message.author.mention + ": **This command is invalid!**"
+            response += display_valid_commands()
+
         await channel.send(response)
 
 try:
