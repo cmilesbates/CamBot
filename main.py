@@ -22,7 +22,7 @@ async def on_message(message):
     if message.content.startswith("!cambot"):
         commands = message.content.split(' ')
         channel = message.channel
-        print(commands[1])
+        #print(commands[1])
         if len(commands) == 1:
             response =  message.author.mention + ": **The syntax for this bot is** ***" + commands[0] + " <command>.***"
             response += display_valid_commands()
