@@ -2,8 +2,6 @@ import discord
 
 client = discord.Client()
 
-token = "PLACE TOKEN HERE"
-
 @client.event
 async def on_ready():
     print("CamBot is ready!")
@@ -18,4 +16,9 @@ async def on_message(message):
         response = "Hi, " + message.author.mention + "!"
         await channel.send(response)
 
-client.run(token)
+try:
+    token_file = open("token.txt")
+    token = token_file.readline().rstrip("\n\r")
+    client.run(token)
+except FileNotFoundError:
+    print("Please put token in token.txt")
