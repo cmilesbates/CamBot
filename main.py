@@ -2,7 +2,7 @@ import discord
 
 client = discord.Client()
 
-valid_commands = ["hello"]
+valid_commands = ["hello", ":heart: (<3)"]
 
 def display_valid_commands():
     response = "\n**Here is a list of available commands:**"
@@ -22,11 +22,14 @@ async def on_message(message):
     if message.content.startswith("!cambot"):
         commands = message.content.split(' ')
         channel = message.channel
+        print(commands[1])
         if len(commands) == 1:
             response =  message.author.mention + ": **The syntax for this bot is** ***" + commands[0] + " <command>.***"
             response += display_valid_commands()
         elif commands[1] == "hello":
             response = "Hi, " + message.author.mention + "!"
+        elif commands[1] == "❤":
+            response = "I <3 you too, " + message.author.mention + "!"
         else:
             response = message.author.mention + ": **This command is invalid!**"
             response += display_valid_commands()
