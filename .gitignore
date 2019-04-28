@@ -1,3 +1,4 @@
 #.gitignore
 token.txt
 pycache
+.DS_Store
