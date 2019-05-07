@@ -29,7 +29,7 @@ async def on_message(message):
             response += display_valid_commands()
         elif commands[1] == "hello":
             response = "Hi, " + message.author.mention + "!"
-        elif commands[1] == "❤":
+        elif commands[1] == "❤" or commands[1] == "<3":
             response = "I :heart: you too, " + message.author.mention + "!"
         else:
             response = message.author.mention + ": **This command is invalid!**"
