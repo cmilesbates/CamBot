@@ -6,14 +6,6 @@ from discord.ext import commands
 #client = discord.Client()
 client = commands.Bot(command_prefix = '!cambot ')
 
-valid_commands = ["hello", ":heart: (<3)"]
-
-def display_valid_commands():
-    response = "\n**Here is a list of available commands:**"
-    for i in range(len(valid_commands)):
-        response += "\n*" + str(i+1) + ". " + valid_commands[i] + "*"
-    return response
-
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Game("Making a Bot"))
