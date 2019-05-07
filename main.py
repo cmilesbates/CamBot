@@ -1,6 +1,10 @@
 import discord
+import asyncio
 
-client = discord.Client()
+from discord.ext import commands
+
+#client = discord.Client()
+client = commands.Bot(command_prefix = '!cambot ')
 
 valid_commands = ["hello", ":heart: (<3)"]
 
@@ -12,29 +16,28 @@ def display_valid_commands():
 
 @client.event
 async def on_ready():
-    print("CamBot is ready!")
     await client.change_presence(activity=discord.Game("Making a Bot"))
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    if message.content.startswith("!cambot"):
-        commands = message.content.split(' ')
-        channel = message.channel
-        #print(commands[1])
-        if len(commands) == 1:
-            response =  message.author.mention + ": **The syntax for this bot is** ***" + commands[0] + " <command>.***"
-            response += display_valid_commands()
-        elif commands[1] == "hello":
-            response = "Hi, " + message.author.mention + "!"
-        elif commands[1] == "❤":
-            response = "I :heart: you too, " + message.author.mention + "!"
-        else:
-            response = message.author.mention + ": **This command is invalid!**"
-            response += display_valid_commands()
+@client.command()
+async def hello(ctx):
+    response = "Hi, " + ctx.author.mention + "!"
+    await ctx.send(response)
 
-        await channel.send(response)
+#HEART COMMANDS
+@client.command(name="<3")
+async def _heart1(ctx):
+    response = "I :heart: you too, " + ctx.author.mention + "!"
+    await ctx.send(response)
+
+@client.command(name=":heart:")
+async def _heart2(ctx):
+    response = "I :heart: you too, " + ctx.author.mention + "!"
+    await ctx.send(response)
+
+@client.command(name="❤")
+async def _heart3(ctx):
+    response = "I :heart: you too, " + ctx.author.mention + "!"
+    await ctx.send(response)
 
 try:
     token_file = open("token.txt")
